@@ -6,8 +6,6 @@ import (
 	"net/http"
 )
 
-var db = make(map[string]string)
-
 func setupRouter() *gin.Engine {
 	// Disable Console Color
 	// gin.DisableConsoleColor()
@@ -24,12 +22,7 @@ func setupRouter() *gin.Engine {
 	// Get user value
 	r.GET("/user/:name", func(c *gin.Context) {
 		user := c.Params.ByName("name")
-		value, ok := db[user]
-		if ok {
-			c.JSON(http.StatusOK, gin.H{"user": user, "value": value})
-		} else {
-			c.JSON(http.StatusOK, gin.H{"user": user, "status": "no value"})
-		}
+		c.JSON(http.StatusOK, gin.H{"user": user, "value": "ok"})
 	})
 
 	// Authorized group (uses gin.BasicAuth() middleware)
@@ -61,8 +54,7 @@ func setupRouter() *gin.Engine {
 		}
 
 		if c.Bind(&json) == nil {
-			db[user] = json.Value
-			c.JSON(http.StatusOK, gin.H{"status": "ok"})
+			c.JSON(http.StatusOK, gin.H{"user": user})
 		}
 	})
 
