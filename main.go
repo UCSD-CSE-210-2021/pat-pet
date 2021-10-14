@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/cse210/petbackend/dao"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"github.com/CSE210/backend210/dao"
 )
 
 var db = make(map[string]string)

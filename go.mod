@@ -1,4 +1,4 @@
-module github.com/CSE210/backend210
+module github.com/cse210/petbackend
 
 go 1.17
 
