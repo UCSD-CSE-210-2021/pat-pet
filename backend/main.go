@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/cse210/petbackend/dao"
+	"github.com/cse210/petbackend/services"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -17,7 +18,8 @@ func setupRouter() *gin.Engine {
 	})
 
 	// Get user value
-	r.GET("/users", dao.GetAllUsers)
+	r.POST("/pets/search", services.GetPetsWithKeyWords)
+	r.POST("/users", services.GetUsers)
 
 	// Get user value
 	r.GET("/user/:name", func(c *gin.Context) {

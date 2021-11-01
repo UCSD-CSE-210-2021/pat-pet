@@ -1,2 +1,2 @@
-USER_TABLE_NAME=testing
+USER_TABLE_NAME=users
 PETS_TABLE_NAME=pets

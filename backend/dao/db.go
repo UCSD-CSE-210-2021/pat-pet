@@ -47,10 +47,7 @@ func (dbManager *DatabaseManager) getTableName(envTableKey string) string {
 	}
 	return val
 }
-
-func (dbManager *DatabaseManager) scanTable(tableName string) []map[string]interface{} {
-	rows, _ := dbManager.db.Query("SELECT * FROM " + tableName)
-	defer rows.Close()
+func (dbManager *DatabaseManager) rowsToObjects(rows *sql.Rows) []map[string]interface{} {
 	colNames, _ := rows.Columns()
 	var retVals []map[string]interface{}
 	for rows.Next() {
@@ -72,4 +69,22 @@ func (dbManager *DatabaseManager) scanTable(tableName string) []map[string]inter
 	}
 	return retVals
 }
+
+func (dbManager *DatabaseManager) scanTable(tableName string) []map[string]interface{} {
+	rows, _ := dbManager.db.Query("SELECT * FROM " + tableName)
+	defer rows.Close()
+	var results = dbManager.rowsToObjects(rows)
+	return results
+}
+
+func (dbManager *DatabaseManager) queryField(
+	tableName string,
+	fieldName string,
+	expected string) []map[string]interface{} {
+	rows, _ := dbManager.db.Query("SELECT * FROM " + tableName + " WHERE " + fieldName + " = $1", expected)
+	defer rows.Close()
+	return dbManager.rowsToObjects(rows)
+}
+
+
 
