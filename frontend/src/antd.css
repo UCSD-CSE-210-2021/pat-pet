@@ -1,0 +1,52 @@
+@import "~antd/dist/antd.css";
+
+.App .ant-menu-title-content {
+  color: rgb(122, 110, 170);
+  transition: none !important;
+  font-weight: 500;
+}
+
+.App .ant-menu-submenu-arrow {
+  color: rgb(122, 110, 170);
+  transition: color 0.4s ease 0s;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.App .ant-btn-primary {
+  background-color: rgb(31, 199, 212);
+  background: rgb(31, 199, 212);
+}
+
+.App .ant-modal-header {
+  overflow: hidden;
+  background: rgb(255, 255, 255);
+  box-shadow: rgb(14 14 44 / 10%) 0px 20px 36px -8px, rgb(0 0 0 / 5%) 0px 1px 1px;
+  border: 1px solid rgb(231, 227, 235);
+  border-radius: 32px 32px 0 0 !important;
+  width: 100%;
+  max-height: 100vh;
+  z-index: 100;
+}
+
+* .ant-popover-inner {
+  border-radius: 20px;
+}
+
+* .ant-list-bordered {
+  border: none !important;
+}
+
+* .ant-popover-inner-content {
+  padding: 0 !important;
+}
+
+* .ant-modal-header {
+  padding: 30px 0 30px 30px;
+  border-radius: 32px 32px 0 0 !important;
+}
+
+* .ant-modal-content .ant-modal-close {
+  top: 10px !important;
+  color: rgb(31, 199, 212) !important;
+}

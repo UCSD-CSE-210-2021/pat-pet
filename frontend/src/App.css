@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&display=swap');
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  min-height: 100%;
+}
+
+* {
+  font-family: Kanit, sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 15px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(122, 110, 170) !important;
+  border-radius: 15px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(122, 110, 170) !important;
+  border-radius: 15px;
+}
+
+.App .ant-typography,
+.App h1,
+.App h2,
+.App h3,
+.App h4,
+.App h5,
+.App p {
+  margin: 0;
+}
+
+.App .button {
+  background-color: rgb(31, 199, 212);
+  color: white;
+  font-family: Kanit, sans-serif !important;
+
+  align-items: center;
+  border: 0px;
+  border-radius: 16px;
+  box-shadow: rgb(14 14 44 / 40%) 0px -1px 0px 0px inset;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  -webkit-box-pack: center;
+  justify-content: center;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  opacity: 1;
+  outline: 0px;
+  transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
+}
+
+.App .button:hover {
+  background-color: rgb(31, 199, 212);
+  color: white;
+  opacity: 0.65;
+}
+
+.App .fill-pancake-green {
+  fill: rgb(31, 199, 212);
+}
+.App .app-purple-text {
+  color: rgb(40, 13, 95);
+}
