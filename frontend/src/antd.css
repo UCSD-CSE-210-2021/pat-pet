@@ -6,6 +6,11 @@
   font-weight: 500;
 }
 
+.App .ant-card-meta-detail {
+  color: rgb(122, 110, 170) !important;
+  font-weight: 500 !important;
+}
+
 .App .ant-menu-submenu-arrow {
   color: rgb(122, 110, 170);
   transition: color 0.4s ease 0s;
@@ -27,6 +32,31 @@
   width: 100%;
   max-height: 100vh;
   z-index: 100;
+}
+
+.App .ant-input {
+  border-radius: 10px;
+}
+
+.App .ant-layout-sider-children {
+  border-radius: 10px;
+  border: 1px solid rgb(122, 110, 170);
+}
+
+.App .ant-layout-sider {
+  border-radius: 10px;
+  border: 1px solid rgb(122, 110, 170);
+  background-color: white;
+}
+
+.App .ant-card-cover {
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.App .ant-btn {
+  border-radius: 10px;
 }
 
 * .ant-popover-inner {

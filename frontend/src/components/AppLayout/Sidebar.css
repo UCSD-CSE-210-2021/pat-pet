@@ -1,7 +1,7 @@
 .sidebar .padding {
   height: 20px;
   border-bottom: none;
-  background-color: white;
+  background-color: transparent;
 }
 
 .sidebar .ant-menu-item:hover {
