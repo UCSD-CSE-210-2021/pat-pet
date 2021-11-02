@@ -12,6 +12,7 @@
   background-color: rgb(255, 255, 255) !important;
   border-bottom: 2px solid rgba(133, 133, 133, 0.1);
   transform: translate3d(0px, 0px, 0px);
+  margin-bottom: 25px;
 }
 .headbar .headbar-left {
   display: flex;

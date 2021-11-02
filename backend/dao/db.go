@@ -49,7 +49,7 @@ func (dbManager *DatabaseManager) getTableName(envTableKey string) string {
 }
 func (dbManager *DatabaseManager) rowsToObjects(rows *sql.Rows) []map[string]interface{} {
 	colNames, _ := rows.Columns()
-	var retVals []map[string]interface{}
+	var retVals = make([]map[string]interface{}, 0)
 	for rows.Next() {
 		var object = make(map[string]interface{})
 		cols := make([]interface{}, len(colNames))

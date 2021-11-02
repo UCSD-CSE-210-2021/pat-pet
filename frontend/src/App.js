@@ -1,7 +1,8 @@
 import React from "react";
 import { WithStore } from "./components/ReactHooks/useStore";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./pages/Home";
+import HomePage from "./pages/Home";
+import SearchPage from "./pages/Search";
 import AppLayout from "./components/AppLayout";
 import './App.css';
 import './antd.css';
@@ -10,15 +11,20 @@ function App() {
   return (
     <WithStore>
     <div className="App">
-      <AppLayout>
         <Router>
           <Switch>
               <Route exact path="/">
-                <Home />
+                <AppLayout>
+                  <HomePage />
+                </AppLayout>
+              </Route>
+              <Route exact path="/search">
+                <AppLayout>
+                  <SearchPage />
+                </AppLayout>
               </Route>
           </Switch>
         </Router>
-      </AppLayout>
     </div>
     </WithStore>
   )

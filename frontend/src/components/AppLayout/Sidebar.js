@@ -1,10 +1,12 @@
 import { Layout, Menu } from 'antd';
 import { HomeFilled, SwapOutlined } from '@ant-design/icons';
+import { useHistory } from "react-router-dom";
 import "./Sidebar.css";
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 export default function Sidebar({ isSidebarExtended }) {
+  const history = useHistory();
   const subMenuStyle = { paddingLeft: 30, fontSize: 13 };
 
   return (
@@ -21,7 +23,9 @@ export default function Sidebar({ isSidebarExtended }) {
         defaultOpenKeys={['sub1']}
         style={{ height: '100%', borderRight: 0 }}
       >
-        <Menu.Item key="home" icon={
+        <Menu.Item
+          onClick={() => history.push("/")}
+          key="home" icon={
           <HomeFilled style={{fontSize: 16, color: "rgb(122, 110, 170)"}}/>
         }>
           Home
@@ -29,7 +33,9 @@ export default function Sidebar({ isSidebarExtended }) {
         <SubMenu key="social" icon={
           <SwapOutlined style={{fontSize: 16, color: "rgb(122, 110, 170)"}}/>
         } title="Social">
-          <Menu.Item style={subMenuStyle} key="social-search">Search</Menu.Item>
+          <Menu.Item
+            onClick={() => history.push("/search")}
+            style={subMenuStyle} key="social-search">Search</Menu.Item>
           <Menu.Item style={subMenuStyle} key="social-post">Post</Menu.Item>
         </SubMenu>
       </Menu>
