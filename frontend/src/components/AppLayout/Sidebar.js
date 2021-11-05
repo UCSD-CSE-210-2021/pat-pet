@@ -36,7 +36,9 @@ export default function Sidebar({ isSidebarExtended }) {
           <Menu.Item
             onClick={() => history.push("/search")}
             style={subMenuStyle} key="social-search">Search</Menu.Item>
-          <Menu.Item style={subMenuStyle} key="social-post">Post</Menu.Item>
+          <Menu.Item
+            onClick={() => history.push("/post")}
+            style={subMenuStyle} key="social-post">Post</Menu.Item>
         </SubMenu>
       </Menu>
     </Sider>
