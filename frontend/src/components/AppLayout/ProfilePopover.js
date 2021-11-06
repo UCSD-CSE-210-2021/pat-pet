@@ -1,12 +1,12 @@
 import { Popover, Avatar } from 'antd';
 import { CaretDownOutlined } from '@ant-design/icons';
 import "./ProfilePopover.css";
-// import { useStore } from "../ReactHooks/useStore";
+import { useStore } from "../ReactHooks/useStore";
 import { ProfileIcon } from "../Widgets/svg";
 import ProfilePopoverMenu from "./ProfilePopoverMenu";
 
 export default function ProfilePopover() {
-  // const [store] = useStore();
+  const [store] = useStore();
 
   return (
     <>
@@ -35,7 +35,7 @@ export default function ProfilePopover() {
             />
           </div>
           <div className="addr-holder app-purple-text">
-            <span className="addr">Johnny Silverhand</span>
+            <span className="addr">{store.username}</span>
             <CaretDownOutlined 
               style={{
                 position: "absolute",

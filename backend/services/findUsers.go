@@ -6,13 +6,18 @@ import (
 	"net/http"
 )
 
-type UserCommand struct {
-	Zipcode string `json:"zipcode" binding:"required"`
+type UserRequest struct {
+	Zipcode string `json:"zipcode"`
 }
 
 func GetUsers(c *gin.Context) {
-	var usrCmd UserCommand
-	c.BindJSON(&usrCmd)
-	var users = dao.QueryUsersWithZipcode(usrCmd.Zipcode)
+	var usrReq UserRequest
+	c.BindJSON(&usrReq)
+	var users []map[string]interface{}
+	if usrReq.Zipcode == "" {
+		users = dao.ScanUsers()
+	} else {
+		users = dao.QueryUsersWithZipcode(usrReq.Zipcode)
+	}
 	c.JSON(http.StatusOK, users)
 }
