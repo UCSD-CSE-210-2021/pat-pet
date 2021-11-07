@@ -1,3 +1,5 @@
+import { enableFetchMocks } from 'jest-fetch-mock'
+enableFetchMocks()
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import SearchPage from './index';
 
@@ -19,6 +21,10 @@ const fakePets = [
        "owner_id":"f1fa9e2b-31be-49d6-ba21-52f9e805c84f"
     }
  ]
+
+beforeEach(() => { // if you have an existing `beforeEach` just add the following line to it
+  fetchMock.doMock()
+})
 
 xit("renders 0 pet data", async () => {
     // Return 0 pets
@@ -58,22 +64,25 @@ xit("renders 2 pet data", async () => {
 
 it("fetch error", async () => {
     // Rejects fetch
-    jest.spyOn(global, "fetch").mockImplementation(() =>
-      Promise.reject(new Error('intentional error'))
-    );
+    fetch.mockReject(new Error('fake error message'));
 
     // Use the asynchronous version of act to apply resolved promises
     render(<SearchPage />);
-    await waitFor(()=>{
-        expect(screen.queryAllByAltText(/petimg/).length).toBe(0);
-    });
+
+    let searchbar = screen.getByPlaceholderText(/keyword/);
+    let searchbtn = screen.getByRole("button", {name: "search"});
+
+    // Type a existing keyword
+    searchbar.value = " ";
+    fireEvent.click(searchbtn);
+    // Nothing should happen
   
-    // remove the mock to ensure tests are completely isolated
-    global.fetch.mockRestore();
-  });
+});
 
 it("search with existing keywords", async () => {
   
+    fetch.mockResponse(JSON.stringify([fakePets[0]]));
+
     render(<SearchPage />);
 
     let cards;
@@ -90,6 +99,8 @@ it("search with existing keywords", async () => {
 
 it("search with empty keywords", async ()=>{
 
+    fetch.mockResponse(JSON.stringify(fakePets));
+
     render(<SearchPage />);
 
     let cards;
@@ -103,7 +114,9 @@ it("search with empty keywords", async ()=>{
     expect(cards.length).toBe(2); // Just for now!
 })
 
-it("search with empty keywords", async ()=>{
+it("search with nonexisting keywords", async ()=>{
+    
+    fetch.mockResponse(JSON.stringify([]));
 
     render(<SearchPage />);
 
@@ -114,6 +127,7 @@ it("search with empty keywords", async ()=>{
     // Type a non-existing keyword
     searchbar.value = "nonsense";
     fireEvent.click(searchbtn)
-    cards = await screen.findAllByAltText(/petimg/);
-    expect(cards.length).toBe(0);
+    await waitFor(()=>{
+      expect(screen.queryAllByAltText(/petimg/).length).toBe(0);
+    });
 })

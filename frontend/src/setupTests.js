@@ -10,4 +10,4 @@ global.matchMedia = global.matchMedia || function () {
       addListener: jest.fn(),
       removeListener: jest.fn(),
     };
-  };
+};
