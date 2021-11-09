@@ -11,7 +11,6 @@ export default function SearchPage() {
   
   const onSearch = async (keyword) => {
     try {
-      console.log(process.env.BACKEND_ENDPOINT)
       const endpoint = `pets/search`;
       const responseJson = await sendPostRequest(
         endpoint, { keyword }, "search pets"
