@@ -15,6 +15,7 @@ export function WithStore({ children }) {
 
     setStore(curStore => ({
       ...curStore,
+      users: users,
       username: users[curStore.curuser].name,
       userid: users[curStore.curuser].id,
       numusers: users.length,
