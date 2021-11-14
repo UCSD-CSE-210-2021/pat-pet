@@ -24,7 +24,7 @@ function App() {
                   <SearchPage />
                 </AppLayout>
               </Route>
-              <Route exact path="/post">
+              <Route exact path="/newpet">
                 <AppLayout>
                   <PostPage />
                 </AppLayout>

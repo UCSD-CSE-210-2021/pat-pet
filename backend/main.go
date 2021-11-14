@@ -28,6 +28,7 @@ func setupRouter() *gin.Engine {
 	r.Use(CORSMiddleware())
 	// Get user value
 	r.POST("/pets/search", services.GetPetsWithKeyWords)
+	r.POST("/pets/new", services.PostNewPet)
 	r.POST("/users", services.GetUsers)
 	// Get user value
 	r.GET("/user/:name", func(c *gin.Context) {

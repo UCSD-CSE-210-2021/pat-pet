@@ -1,6 +1,6 @@
-export const sendPostRequest = async (endpoint, requestObj, tip="") => {
+export const sendPostRequest = async (route, requestObj, tip="") => {
     const response = await fetch(
-      `http://localhost:8080/${endpoint}`,
+      `${process.env.REACT_APP_BACKEND_ENDPOINT}${route}`,
       {
         headers: { 'Content-Type': 'application/json' },
         method: "POST",

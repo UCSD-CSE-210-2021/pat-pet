@@ -6,18 +6,23 @@ export function WithStore({ children }) {
   const [store, setStore] = useState({
     loading: true,
     userid: "",
+    numusers: 0,
+    curuser: 0,
   });
 
   const fetchRemoteConfig = async () => {
     const users = await sendPostRequest(`users`, {}, "init");
-    const user = users[Math.floor(Math.random()*users.length)];
-    setStore({
-      ...store,
-      username: user.name,
-      userid: user.id,
+
+    setStore(curStore => ({
+      ...curStore,
+      users: users,
+      username: users[curStore.curuser].name,
+      userid: users[curStore.curuser].id,
+      numusers: users.length,
+      curuser: 0, // (curStore.curuser + 1) % curStore.numusers
       loading: false,
       isSidebarExtended: true
-    });
+    }));
   };
 
   useEffect(() => {
