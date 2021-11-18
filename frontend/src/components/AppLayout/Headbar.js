@@ -37,7 +37,7 @@ export default function Headbar({
           <div className="headbar-welcome">
             <img className="logo-holder" src="/petpat.jpg" alt="check" />
             <div className="headbar-text">
-              Time to pat a pet, motherfucker! ;)
+              Time to pat a pet! ;)
             </div>
           </div>
         </div>

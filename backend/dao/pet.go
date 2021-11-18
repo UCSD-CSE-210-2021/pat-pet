@@ -1,6 +1,7 @@
 package dao
 
 import (
+	"database/sql"
 	"fmt"
 	uuid "github.com/google/uuid"
 )
@@ -10,13 +11,24 @@ func petsTableName() string {
 }
 
 func QueryPetsWithKeyWords(keyword string) []map[string]interface{} {
-	rows, err := dbManager.db.Query(
-		"SELECT * FROM " +
-			petsTableName() +
-			" WHERE LOWER(description) ILIKE $1 OR LOWER(category) ILIKE $1",
-		"%"+keyword+"%")
-	if err != nil {
-		panic(err)
+	usermapStmt := "(SELECT name AS user_name, id AS user_id, contact FROM " + userTableName() + ") AS user_accessory"
+	userIdJoinKey := "user_accessory.user_id"
+	petIdJoinKey := petsTableName() + ".owner_id"
+	joinStmt := " ON " + userIdJoinKey + " = " + petIdJoinKey
+	var rows *sql.Rows
+	if keyword != "" {
+		rows, _ = dbManager.db.Query(
+			"SELECT * FROM " +
+				petsTableName() +
+				" INNER JOIN " + usermapStmt + joinStmt +
+				" WHERE LOWER(description) ILIKE $1 OR LOWER(category) ILIKE $1",
+			"%"+keyword+"%")
+	} else {
+		rows, _ = dbManager.db.Query(
+			"SELECT * FROM " +
+				petsTableName() +
+				" INNER JOIN " + usermapStmt + joinStmt,
+			)
 	}
 	defer rows.Close()
 	var results = dbManager.rowsToObjects(rows)
