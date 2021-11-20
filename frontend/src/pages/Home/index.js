@@ -55,6 +55,11 @@ export default function HomePage() {
           <>
             <Col style={{marginRight: 30, marginBottom: 20}}>
               <Card
+                  bodyStyle={{
+                    maxWidth: 300,
+                    maxHeight: 150,
+                    overflow: "auto"
+                  }}
                   key={i}
                   bordered={false}
                   style={{ width: 250, height: 320, borderRadius: 10 }}

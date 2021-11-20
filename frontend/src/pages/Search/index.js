@@ -69,13 +69,18 @@ export default function SearchPage() {
                 <Card
                   key={i}
                   bordered={false}
+                  bodyStyle={{
+                    maxWidth: 300,
+                    maxHeight: 150,
+                    overflow: "auto"
+                  }}
                   hoverable
                   style={{ width: 250, height: 320, borderRadius: 10 }}
                   cover={<img style={{width: 150, height: 150, marginTop: 5, paddingTop: 20, objectFit: "scale-down"}} alt="petimg" src={pet.image_url}/>}
                 >
                   <Meta 
                     title={<span className="cute-font-title">{pet.name}</span>} 
-                    description={<span className="cute-font-body">{pet.description}</span>} />
+                    description={<span>{pet.description}</span>} />
                 </Card>
               </Popover>
             </Col>

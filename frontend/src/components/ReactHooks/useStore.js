@@ -18,6 +18,8 @@ export function WithStore({ children }) {
       users: users,
       username: users[curStore.curuser].name,
       userid: users[curStore.curuser].id,
+      contact: users[curStore.curuser].contact,
+      zipcode: users[curStore.curuser].zipcode,
       numusers: users.length,
       curuser: 0, // (curStore.curuser + 1) % curStore.numusers
       loading: false,
