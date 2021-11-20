@@ -10,6 +10,12 @@ type UserRequest struct {
 	Zipcode string `json:"zipcode"`
 }
 
+type UserInfoRequest struct {
+	Id string `json:"id"`
+	Contact string `json:"contact"`
+	Zipcode string `json:"zipcode"`
+}
+
 func GetUsers(c *gin.Context) {
 	var usrReq UserRequest
 	c.BindJSON(&usrReq)
@@ -20,4 +26,11 @@ func GetUsers(c *gin.Context) {
 		users = dao.QueryUsersWithZipcode(usrReq.Zipcode)
 	}
 	c.JSON(http.StatusOK, users)
+}
+
+func UpdateUserInfo(c *gin.Context) {
+	var usrInfoReq UserInfoRequest
+	c.BindJSON(&usrInfoReq)
+	success := dao.UpdateUser(usrInfoReq.Id, usrInfoReq.Contact, usrInfoReq.Zipcode)
+	c.JSON(http.StatusOK, gin.H{"status" : success})
 }

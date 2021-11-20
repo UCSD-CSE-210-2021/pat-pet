@@ -30,6 +30,7 @@ func setupRouter() *gin.Engine {
 	r.POST("/pets/search", services.GetPetsWithKeyWords)
 	r.POST("/pets/new", services.PostNewPet)
 	r.POST("/users", services.GetUsers)
+	r.POST("/user/update", services.UpdateUserInfo)
 	// Get user value
 	resources := r.Group("/user/:id")
 	{
