@@ -2,11 +2,17 @@ import "./index.css";
 import React, { useState } from "react";
 import { Input, Card, Col, Row, Popover, Button } from "antd";
 import { sendPostRequest } from "../../utils/request";
+import { useStore } from "../../components/ReactHooks/useStore";
 const { Search } = Input;
 const { Meta } = Card;
 
 export default function SearchPage() {
   const [pets, setPets] = useState([]);
+  const [store] = useStore()
+
+  const filterPets = pets => {
+    return pets.filter(pet => pet.owner_id !== store.userid)
+  }
   
   const onSearch = async (keyword) => {
     try {
@@ -14,7 +20,7 @@ export default function SearchPage() {
       const responseJson = await sendPostRequest(
         endpoint, { keyword }, "search pets"
       );
-      setPets(responseJson);
+      setPets(filterPets(responseJson));
     } catch (err) {
       setPets([]);
       console.log(`Fetch Error ${err.message}`);
