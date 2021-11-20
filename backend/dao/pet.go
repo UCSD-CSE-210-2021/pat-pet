@@ -35,6 +35,21 @@ func QueryPetsWithKeyWords(keyword string) []map[string]interface{} {
 	return results
 }
 
+func QueryOwnedPets(userid string) []map[string]interface{} {
+	return dbManager.queryField(petsTableName(), "owner_id", userid)
+}
+
+func DeleteOwnedPet(userid string, petid string) bool {
+	_, err := dbManager.db.Exec(
+		"DELETE FROM " + petsTableName() + " WHERE owner_id = $1 AND id = $2",
+		userid,
+		petid)
+	if err != nil {
+		return false
+	}
+	return true
+}
+
 func InsertNewPet(name string, category string, description string, imageUrl string, ownerId string) bool {
 	sqlStatement := `INSERT INTO ` +  petsTableName() +
 		` (id, name, category, description, image_url, owner_id) VALUES ($1, $2, $3, $4, $5, $6)`

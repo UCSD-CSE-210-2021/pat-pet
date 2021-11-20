@@ -31,10 +31,15 @@ func setupRouter() *gin.Engine {
 	r.POST("/pets/new", services.PostNewPet)
 	r.POST("/users", services.GetUsers)
 	// Get user value
-	r.GET("/user/:name", func(c *gin.Context) {
-		user := c.Params.ByName("name")
-		c.JSON(http.StatusOK, gin.H{"user": user, "value": "ok"})
-	})
+	resources := r.Group("/user/:id")
+	{
+		resources.GET("pets", services.GetUserPets)
+		resources.GET("pet/:pid/delete", services.DeleteUserPets)
+		resources.GET("test", func(c *gin.Context) {
+			user := c.Params.ByName("name")
+			c.JSON(http.StatusOK, gin.H{"user": user, "value": "ok"})
+		})
+	}
 
 	return r
 }

@@ -87,4 +87,3 @@ func (dbManager *DatabaseManager) queryField(
 }
 
 
-
