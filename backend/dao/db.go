@@ -5,12 +5,13 @@ import (
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"log"
+	"os"
 )
 
 type DatabaseManager struct {
-	db *sql.DB
-	connString string
-	driver string
+	db                *sql.DB
+	connString        string
+	driver            string
 	tableNamesMapping map[string]string
 }
 
@@ -22,8 +23,14 @@ func InitializeDB() {
 	mode := envs["MODE"]
 	if mode == "prod" {
 		connString = envs["DB_HOST_PROD"]
-	} else {
+	} else if mode == "dev" {
 		connString = envs["DB_HOST_DEV"]
+	} else {
+		connString = envs["DB_HOST_TEST"]
+	}
+
+	if os.Getenv("CI") == "GitHub" {
+		connString = os.Getenv("POSTGRES_CONN_STRING")
 	}
 	dbManager = &DatabaseManager{connString: connString, driver: "postgres"}
 	dbConnected, err := sql.Open(dbManager.driver, dbManager.connString)
@@ -81,9 +88,7 @@ func (dbManager *DatabaseManager) queryField(
 	tableName string,
 	fieldName string,
 	expected string) []map[string]interface{} {
-	rows, _ := dbManager.db.Query("SELECT * FROM " + tableName + " WHERE " + fieldName + " = $1", expected)
+	rows, _ := dbManager.db.Query("SELECT * FROM "+tableName+" WHERE "+fieldName+" = $1", expected)
 	defer rows.Close()
 	return dbManager.rowsToObjects(rows)
 }
-
-

@@ -1,0 +1,48 @@
+name: Go CI
+
+on:
+  push:
+    branches: [ main, search-test-ci ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v2
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Import test database
+        run: ../.github/workflows/import_db.sh
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
+      - name: Run go tests
+        run: go test
+        env:
+          CI: "GitHub"
+          POSTGRES_CONN_STRING: "postgres://postgres:postgres@localhost:5432/patpet"
