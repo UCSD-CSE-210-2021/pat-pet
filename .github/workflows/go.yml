@@ -47,4 +47,4 @@ jobs:
         run: go test
         env:
           CI: "GitHub"
-          POSTGRES_CONN_STRING: "postgres://postgres:postgres@localhost:1234/patpet"
+          POSTGRES_CONN_STRING: "postgres://postgres:postgres@localhost:1234/patpet?sslmode=disable"
