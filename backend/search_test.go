@@ -3,7 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -19,7 +19,7 @@ func TestSearchEmptyKeyword(t *testing.T) {
 	router.ServeHTTP(w, req)
 
 	resp := w.Result()
-	body, err := io.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		t.Fatalf("Unable to read response body")
 	}
@@ -46,7 +46,7 @@ func TestSearchCatKeyword(t *testing.T) {
 	router.ServeHTTP(w, req)
 
 	resp := w.Result()
-	body, err := io.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		t.Fatalf("Unable to read response body")
 	}
@@ -73,7 +73,7 @@ func TestSearchDogKeyword(t *testing.T) {
 	router.ServeHTTP(w, req)
 
 	resp := w.Result()
-	body, err := io.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		t.Fatalf("Unable to read response body")
 	}
