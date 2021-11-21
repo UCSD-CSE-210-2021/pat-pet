@@ -1,8 +1,31 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders mainpage', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  // Should be rendered by default
+  // const helloMsg = screen.getByText(/mother/);
+  // expect(helloMsg).toBeInTheDocument();
+  // Nav bar is collapsed
+
+  // Nav bar is extended
+
+});
+
+test('extend and collapse the nav menu', () => {
+  render(<App />);
+
+});
+
+test('renders search page', () => {
+  // Nav bar is collapsed
+
+  // Nav bar is extended
+
+});
+
+test('renders post page', () => {
+  // Nav bar is collapsed
+
+  // Nav bar is extended
 });
