@@ -59,6 +59,10 @@
   border-radius: 10px;
 }
 
+.App .ant-form {
+  background-color: white !important;
+}
+
 * .ant-popover-inner {
   border-radius: 20px;
 }

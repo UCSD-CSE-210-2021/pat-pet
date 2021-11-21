@@ -1,17 +1,30 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { sendPostRequest } from "../../utils/request";
 const StoreContext = createContext([{}, () => {}]);
 
 export function WithStore({ children }) {
   const [store, setStore] = useState({
-    loading: true
+    loading: true,
+    userid: "",
+    numusers: 0,
+    curuser: 0,
   });
 
   const fetchRemoteConfig = async () => {
-    setStore({
-      ...store,
+    const users = await sendPostRequest(`users`, {}, "init");
+
+    setStore(curStore => ({
+      ...curStore,
+      users: users,
+      username: users[curStore.curuser].name,
+      userid: users[curStore.curuser].id,
+      contact: users[curStore.curuser].contact,
+      zipcode: users[curStore.curuser].zipcode,
+      numusers: users.length,
+      curuser: 0, // (curStore.curuser + 1) % curStore.numusers
       loading: false,
       isSidebarExtended: true
-    });
+    }));
   };
 
   useEffect(() => {

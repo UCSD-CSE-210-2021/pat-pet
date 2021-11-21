@@ -1,0 +1,13 @@
+.dot {
+  height: 30px;
+  width: 30px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  color: #ffffff;
+  font-size: 20px;
+  padding-left: 8px;
+  margin-top: -320px;
+  cursor: pointer;
+}
