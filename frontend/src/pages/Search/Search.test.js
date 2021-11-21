@@ -88,19 +88,12 @@ it("search with existing keywords", async () => {
     let cards;
     let searchbar = screen.getByPlaceholderText(/keyword/);
     let searchbtn = screen.getByRole("button", {name: "search"});
-    let detailedInformation = "Detailed information";
 
     // Type a existing keyword
     searchbar.value = "cat";
     fireEvent.click(searchbtn)
     cards = await screen.findAllByAltText(/petimg/);
     expect(cards.length).toBe(1); // Just for now!
-
-    // Test on clicking the searched card
-    expect(screen.queryByText(detailedInformation)).toBeNull();
-    fireEvent.click(cards[0]);
-    expect(screen.getByText(detailedInformation)).toBeInTheDocument();
-
   });
 
 it("search with empty keywords", async ()=>{
@@ -112,17 +105,12 @@ it("search with empty keywords", async ()=>{
     let cards;
     let searchbar = screen.getByPlaceholderText(/keyword/);
     let searchbtn = screen.getByRole("button", {name: "search"});
-    let detailedInformation = "Detailed information";
 
     // Type a existing keyword
     searchbar.value = " ";
     fireEvent.click(searchbtn)
     cards = await screen.findAllByAltText(/petimg/);
     expect(cards.length).toBe(2); // Just for now!
-
-    // Test on clicking the searched card
-    expect(screen.queryByText(detailedInformation)).toBeNull();
-
 });
 
 it("search with nonexisting keywords", async ()=>{
@@ -134,7 +122,6 @@ it("search with nonexisting keywords", async ()=>{
     let cards;
     let searchbar = screen.getByPlaceholderText(/keyword/);
     let searchbtn = screen.getByRole("button", {name: "search"});
-    let detailedInformation = "Detailed information";
 
     // Type a non-existing keyword
     searchbar.value = "nonsense";
@@ -142,7 +129,28 @@ it("search with nonexisting keywords", async ()=>{
     await waitFor(()=>{
       expect(screen.queryAllByAltText(/petimg/).length).toBe(0);
     });
+});
 
-    // Test on clicking the searched card
-    expect(screen.queryByText(detailedInformation)).toBeNull();
-})
+it("click on searched posts to show details", async () => {
+  
+  fetch.mockResponse(JSON.stringify([fakePets[0]]));
+
+  render(<SearchPage />);
+
+  let cards;
+  let searchbar = screen.getByPlaceholderText(/keyword/);
+  let searchbtn = screen.getByRole("button", {name: "search"});
+  let detailedInformation = "Detailed information";
+
+  // Type a existing keyword
+  searchbar.value = "cat";
+  fireEvent.click(searchbtn)
+  cards = await screen.findAllByAltText(/petimg/);
+  expect(cards.length).toBe(1); // Just for now!
+
+  // Test on clicking the searched card
+  expect(screen.queryByText(detailedInformation)).toBeNull();
+  fireEvent.click(cards[0]);
+  expect(screen.getByText(detailedInformation)).toBeInTheDocument();
+
+});
