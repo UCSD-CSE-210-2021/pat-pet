@@ -1,6 +1,6 @@
 import "./index.css";
 import React, { useState } from "react";
-import { Input, Card, Col, Row, Popover, Button, Modal, AutoComplete } from "antd";
+import { Input, Card, Col, Row, Button, Modal} from "antd";
 import { sendPostRequest } from "../../utils/request";
 import { useStore } from "../../components/ReactHooks/useStore";
 const { Search } = Input;
@@ -62,7 +62,6 @@ export default function SearchPage() {
                     title={<span className="cute-font-title">{pet.name}</span>} 
                     description={<span>{pet.description}</span>} />
                 </Card>
-              {/* </Popover> */}
             </Col>
             <Modal 
               title="Detailed information" 
