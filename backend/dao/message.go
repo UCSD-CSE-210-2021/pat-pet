@@ -21,8 +21,8 @@ func InsertNewMessage(senderId string, receiverId string, content string, delive
 	return true
 }
 
-func QueryMessages(senderId string, receiverId string) []map[string]interface{} {
-	rows, _ := dbManager.db.Query("SELECT * FROM "+messagesTableName()+" WHERE sender_id = $1 AND receiver_id = $2", senderId, receiverId)
+func QueryMessages(userOneId string, userTwoId string) []map[string]interface{} {
+	rows, _ := dbManager.db.Query("SELECT * FROM "+messagesTableName()+" WHERE (sender_id = $1 AND receiver_id = $2) OR (sender_id = $3 AND receiver_id = $4)", userOneId, userTwoId, userTwoId, userOneId)
 	defer rows.Close()
 	return dbManager.rowsToObjects(rows)
 }

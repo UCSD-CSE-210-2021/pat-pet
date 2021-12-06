@@ -46,7 +46,7 @@ func setupRouter() *gin.Engine {
 
 	ws.InitHub()
 	r.GET("/ws", ws.ServeWs)
-	r.GET("/messages/:senderid/:receiverid", services.GetMessages)
+	r.GET("/messagehistory", services.GetMessageHistory)
 
 	return r
 }

@@ -6,9 +6,9 @@ import (
 	"net/http"
 )
 
-func GetMessages(c *gin.Context) {
-	senderId := c.Params.ByName("senderid")
-	receiverId := c.Params.ByName("receiverid")
-	var messages = dao.QueryMessages(senderId, receiverId)
+func GetMessageHistory(c *gin.Context) {
+	userOneId := c.Query("user_one_id")
+	userTwoId := c.Query("user_two_id")
+	var messages = dao.QueryMessages(userOneId, userTwoId)
 	c.JSON(http.StatusOK, messages)
 }
