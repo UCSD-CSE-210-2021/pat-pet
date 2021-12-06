@@ -44,12 +44,15 @@ func (c *Client) read() {
 		}
 		splits := bytes.SplitN(message, space, 2)
 		senderId := splits[0]
+
 		if c.userId == "" {
+			// set up direct messages
 			c.userId = string(senderId)
 			h.register <- c
+		} else {
+			message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
+			h.message <- message
 		}
-		message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
-		h.message <- message
 	}
 }
 
@@ -62,13 +65,6 @@ func (c *Client) write() {
 			if !ok {
 				c.conn.WriteMessage(websocket.CloseMessage, []byte{})
 				return
-			}
-
-			splits := bytes.SplitN(message, space, 3)
-			receiverId := splits[1]
-			if c.userId == "" {
-				c.userId = string(receiverId)
-				h.register <- c
 			}
 
 			w, err := c.conn.NextWriter(websocket.TextMessage)
