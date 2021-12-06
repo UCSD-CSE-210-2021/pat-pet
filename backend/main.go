@@ -3,9 +3,11 @@ package main
 import (
 	"github.com/cse210/petbackend/dao"
 	"github.com/cse210/petbackend/services"
+	"github.com/cse210/petbackend/ws"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
+
 func CORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Header("Access-Control-Allow-Origin", "*")
@@ -41,6 +43,10 @@ func setupRouter() *gin.Engine {
 			c.JSON(http.StatusOK, gin.H{"user": user, "value": "ok"})
 		})
 	}
+
+	ws.InitHub()
+	r.GET("/ws", ws.ServeWs)
+	r.GET("/messages/:senderid/:receiverid", services.GetMessages)
 
 	return r
 }
