@@ -19,16 +19,16 @@ type Hub struct {
 	unregister chan *Client
 }
 
-var messageHub *Hub
+var h *Hub
 
 func InitHub() {
-	messageHub = &Hub{
+	h = &Hub{
 		message:    make(chan []byte),
 		register:   make(chan *Client),
 		unregister: make(chan *Client),
 		clients:    make(map[string]*Client),
 	}
-	go messageHub.run()
+	go h.run()
 }
 
 func (h *Hub) run() {

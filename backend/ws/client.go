@@ -19,8 +19,6 @@ var upgrader = websocket.Upgrader{
 }
 
 type Client struct {
-	hub *Hub
-
 	// The websocket connection.
 	conn *websocket.Conn
 
@@ -32,7 +30,7 @@ type Client struct {
 
 func (c *Client) read() {
 	defer func() {
-		c.hub.unregister <- c
+		h.unregister <- c
 		c.conn.Close()
 	}()
 
@@ -48,10 +46,10 @@ func (c *Client) read() {
 		senderId := splits[0]
 		if c.userId == "" {
 			c.userId = string(senderId)
-			c.hub.register <- c
+			h.register <- c
 		}
 		message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
-		c.hub.message <- message
+		h.message <- message
 	}
 }
 
@@ -70,7 +68,7 @@ func (c *Client) write() {
 			receiverId := splits[1]
 			if c.userId == "" {
 				c.userId = string(receiverId)
-				c.hub.register <- c
+				h.register <- c
 			}
 
 			w, err := c.conn.NextWriter(websocket.TextMessage)
@@ -101,7 +99,7 @@ func ServeWs(c *gin.Context) {
 		log.Println(err)
 		return
 	}
-	client := &Client{hub: messageHub, conn: conn, send: make(chan []byte, 256), userId: ""}
+	client := &Client{conn: conn, send: make(chan []byte, 256), userId: ""}
 
 	go client.write()
 	go client.read()
