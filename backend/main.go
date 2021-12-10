@@ -1,11 +1,13 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/cse210/petbackend/dao"
 	"github.com/cse210/petbackend/services"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
+
 func CORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Header("Access-Control-Allow-Origin", "*")
@@ -36,6 +38,9 @@ func setupRouter() *gin.Engine {
 	{
 		resources.GET("pets", services.GetUserPets)
 		resources.GET("pet/:pid/delete", services.DeleteUserPets)
+		resources.GET("follow", services.GetFollowedPets)
+		resources.GET("pet/:pid/follow", services.FollowPets)
+		resources.GET("pet/:pid/unfollow", services.UnfollowPets)
 		resources.GET("test", func(c *gin.Context) {
 			user := c.Params.ByName("name")
 			c.JSON(http.StatusOK, gin.H{"user": user, "value": "ok"})
